@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
@@ -38,6 +39,40 @@ const WhatsAppIcon = ({ size = 24, color = "currentColor" }) => (
 
 const Contact = () => {
   const { t } = useTranslation();
+  
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle'); // idle, loading, success, error
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+    
+    try {
+      const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxgMKeTsTyF7biyrcEzA7RFv_tCvL7teoXhzC7DDuDrUOsI8KvOXMuZ2DwxmLbDYA4V/exec";
+      const formPayload = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formPayload.append(key, value);
+      });
+
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        body: formPayload,
+        mode: 'no-cors'
+      });
+
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
+  };
 
   return (
     <div className="animate-fade-in" style={{ marginTop: '3rem', marginBottom: '5rem' }}>
@@ -112,21 +147,34 @@ const Contact = () => {
         <div style={{ flex: '1 1 500px' }}>
           <div className="glass-panel" style={{ height: '100%', padding: '3rem' }}>
             <h2 style={{ marginBottom: '2rem' }}>{t('contact.formTitle')}</h2>
-            <form onSubmit={(e) => { e.preventDefault(); alert(t('contact.formSuccess')); e.target.reset(); }}>
+            
+            {status === 'success' && (
+              <div style={{ backgroundColor: 'var(--success-color, #10b981)', color: '#fff', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 'bold' }}>
+                {t('contact.formSuccess')}
+              </div>
+            )}
+            
+            {status === 'error' && (
+              <div style={{ backgroundColor: 'var(--error-color, #ef4444)', color: '#fff', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', textAlign: 'center', fontWeight: 'bold' }}>
+                Bir hata oluştu, lütfen tekrar deneyin. / An error occurred, please try again.
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
               <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: 'var(--text-primary)' }}>{t('contact.formName')}</label>
-                <input type="text" className="form-control" placeholder={t('contact.formNamePlaceholder')} required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', outline: 'none' }} />
+                <input type="text" name="name" value={formData.name} onChange={handleChange} className="form-control" placeholder={t('contact.formNamePlaceholder')} required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', outline: 'none' }} />
               </div>
               <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: 'var(--text-primary)' }}>{t('contact.formEmail')}</label>
-                <input type="email" className="form-control" placeholder={t('contact.formEmailPlaceholder')} required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', outline: 'none' }} />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-control" placeholder={t('contact.formEmailPlaceholder')} required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', outline: 'none' }} />
               </div>
               <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: 'var(--text-primary)' }}>{t('contact.formMessage')}</label>
-                <textarea className="form-control" placeholder={t('contact.formMessagePlaceholder')} rows="5" required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', resize: 'vertical', outline: 'none' }}></textarea>
+                <textarea name="message" value={formData.message} onChange={handleChange} className="form-control" placeholder={t('contact.formMessagePlaceholder')} rows="5" required style={{ width: '100%', padding: '1rem', borderRadius: '12px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-primary)', resize: 'vertical', outline: 'none' }}></textarea>
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem' }}>
-                {t('contact.formSubmit')}
+              <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ width: '100%', padding: '1.2rem', fontSize: '1.1rem', marginTop: '1rem', opacity: status === 'loading' ? 0.7 : 1, cursor: status === 'loading' ? 'not-allowed' : 'pointer' }}>
+                {status === 'loading' ? '...' : t('contact.formSubmit')}
               </button>
             </form>
           </div>

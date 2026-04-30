@@ -96,7 +96,7 @@ const resources = {
         formSubmit: "Mesajı Gönder",
         formSuccess: "Mesajınız başarıyla gönderildi!",
         address: "Küçükbakkalköy Mahallesi Selvili Sokak No:4/20 Ataşehir, Istanbul, Turkey, 34750",
-        phone: "+90 212 400 09 09",
+        phone: "+90 540 040 09 55",
         email: "info@anatross.com"
       },
       footer: {
@@ -226,7 +226,7 @@ const resources = {
         formSubmit: "Send Message",
         formSuccess: "Your message has been sent successfully!",
         address: "Küçükbakkalköy Mahallesi Selvili Sokak No:4/20 Ataşehir, Istanbul, Turkey, 34750",
-        phone: "+90 212 400 09 09",
+        phone: "+90 540 040 09 55",
         email: "info@anatross.com"
       },
       footer: {
@@ -356,7 +356,7 @@ const resources = {
         formSubmit: "إرسال رسالة",
         formSuccess: "تم إرسال رسالتك بنجاح!",
         address: "Küçükbakkalköy Mahallesi Selvili Sokak No:4/20 Ataşehir, Istanbul, Turkey, 34750",
-        phone: "+90 212 400 09 09",
+        phone: "+90 540 040 09 55",
         email: "info@anatross.com"
       },
       footer: {
