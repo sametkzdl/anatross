@@ -62,7 +62,7 @@ const Services = () => {
           desc1={t('services.s1.desc1', { defaultValue: '' })}
           desc2={t('services.s1.desc2', { defaultValue: '' })}
           icon={Globe}
-          image="/service-1.jpeg"
+          image={`${import.meta.env.BASE_URL}service-1.jpeg`}
           reverse={false}
         />
         
@@ -72,7 +72,7 @@ const Services = () => {
           desc2={t('services.s2.desc2', { defaultValue: '' })}
           desc3={t('services.s2.desc3', { defaultValue: '' })}
           icon={Briefcase}
-          image="/service-2.jpeg"
+          image={`${import.meta.env.BASE_URL}service-2.jpeg`}
           reverse={true}
         />
         
@@ -81,7 +81,7 @@ const Services = () => {
           desc1={t('services.s3.desc1', { defaultValue: '' })}
           desc2={t('services.s3.desc2', { defaultValue: '' })}
           icon={Plane}
-          image="/service-3.jpeg"
+          image={`${import.meta.env.BASE_URL}service-3.jpeg`}
           reverse={false}
         />
         
@@ -90,7 +90,7 @@ const Services = () => {
           desc1={t('services.s4.desc1', { defaultValue: '' })}
           desc2={t('services.s4.desc2', { defaultValue: '' })}
           icon={ShieldCheck}
-          image="/service-4.jpeg"
+          image={`${import.meta.env.BASE_URL}service-4.jpeg`}
           reverse={true}
         />
       </div>

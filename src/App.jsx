@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -37,7 +37,7 @@ function App() {
   }, [i18n.language]);
 
   return (
-    <BrowserRouter>
+    <Router>
       <ScrollToTop />
       <div className="app-container">
         <Navbar />
@@ -55,7 +55,7 @@ function App() {
         <Footer />
         <StickyWhatsApp />
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-brand" style={{ display: 'flex', alignItems: 'center' }}>
         <NavLink to="/" onClick={closeMenu} style={{ display: 'flex', alignItems: 'center' }}>
-          <img className='logo-custom' src="/anatross_logo.png" alt="Anatross Logo" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} />
+          <img className='logo-custom' src={`${import.meta.env.BASE_URL}anatross_logo.png`} alt="Anatross Logo" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} />
         </NavLink>
       </div>
       

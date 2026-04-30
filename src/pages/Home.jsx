@@ -49,7 +49,7 @@ const Home = () => {
         flexDirection: 'column', 
         alignItems: 'flex-start',
         justifyContent: 'center',
-        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 80%), url('/home_banner.jpeg')`,
+        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 80%), url('${import.meta.env.BASE_URL}home_banner.jpeg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         borderRadius: '24px',
@@ -95,7 +95,7 @@ const Home = () => {
             </div>
           </div>
           <div style={{ flex: '1 1 400px', minHeight: '400px', background: 'var(--surface-color)', position: 'relative' }}>
-             <img src="/service-2.jpeg" alt="Featured Service" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+             <img src={`${import.meta.env.BASE_URL}service-2.jpeg`} alt="Featured Service" style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
           </div>
         </div>
       </div>
